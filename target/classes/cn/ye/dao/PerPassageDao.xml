@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--第一步：指定需要进行代理的接口的位置-->
+<mapper namespace="cn.ye.dao.PerPassageDao">
+
+
+    <!--第二步：配置返回数据和模板类字段的对应-->
+    <resultMap id="perPassageMap" type="PerPassage">
+        <id property="id" column="id"></id>
+        <result property="edit_user" column="edit_user"></result>
+        <result property="date" column="date"></result>
+        <result property="content" column="content"></result>
+    </resultMap>
+    <!--新增发帖-->
+    <insert id="insertPerPassage" parameterType="PerPassage">
+        insert into per_passage() values(null,#{edit_user},#{date},#{content});
+    </insert>
+    <!--删除发帖-->
+    <delete id="deletePerPassage" parameterType="PerPassage">
+        DELETE FROM per_passage WHERE id=#{id};
+    </delete>
+    <!--更新发帖-->
+    <delete id="updatePerPassage" parameterType="PerPassage">
+        update per_passage set content=#{content} where id=#{id}
+    </delete>
+    <!--查询所有-->
+    <select id="findAll" resultMap="perPassageMap">
+        SELECT * FROM per_passage;
+    </select>
+    <!--查询所有-->
+    <select id="findTotalCount" resultType="Integer">
+        SELECT count(*) FROM per_passage;
+    </select>
+    <!--查询所有并通过date降序-->
+    <select id="findAllOrderByDate" resultMap="perPassageMap">
+        SELECT * FROM per_passage order by date desc ;
+    </select>
+    <!--通过作者名称查询-->
+    <select id="findPerPassageById" parameterType="PerPassage" resultMap="perPassageMap">
+       SELECT * FROM per_passage WHERE edit_user=#{id};
+    </select>
+
+
+    <resultMap id="perPassageMapPageQuery" type="PerPassage">
+        <id property="id" column="pid"></id>
+        <result property="edit_user" column="edit_user"></result>
+        <result property="date" column="date"></result>
+        <result property="content" column="content"></result>
+        <association property="user" javaType="User">
+            <id property="id" column="id"></id>
+            <result property="name" column="username"></result>
+            <result property="password" column="password"></result>
+            <result property="email" column="email"></result>
+            <result property="sex" column="sex"></result>
+            <result property="phone" column="phone"></result>
+            <result property="img" column="img"></result>
+            <result property="qq" column="qq"></result>
+            <result property="wChat" column="wchat"></result>
+            <result property="className" column="class"></result>
+            <result property="birthday" column="birthday"></result>
+            <result property="login_data" column="login_date"></result>
+            <result property="hobby" column="hobby"></result>
+            <result property="introduce" column="introduce"></result>
+        </association>
+    </resultMap>
+    <!--分页查询-->
+    <select id="findPerPassagePerPage" parameterType="int" resultMap="perPassageMapPageQuery">
+      select p.date,p.id pid,p.content,p.edit_user,p.id,u.* from per_passage p,user u where p.edit_user=u.id order by p.date desc limit #{currentPage},12;
+    </select>
+</mapper>

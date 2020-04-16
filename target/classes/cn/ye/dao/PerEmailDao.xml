@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--第一步：指定需要进行代理的接口的位置-->
+<mapper namespace="cn.ye.dao.PerEmailDao">
+
+
+    <!--第二步：配置返回数据和模板类字段的对应-->
+    <resultMap id="perEmailMap" type="PerEmail">
+        <id property="id" column="eid"></id>
+        <result property="user_from" column="user_from"></result>
+        <result property="user_to" column="user_to"></result>
+        <result property="date" column="date"></result>
+        <result property="content" column="content"></result>
+
+        <!--一对一关系之发信人-->
+        <association property="find_user_from" javaType="User">
+            <id property="id" column="id"></id>
+            <result property="name" column="username"></result>
+            <result property="password" column="password"></result>
+            <result property="email" column="email"></result>
+            <result property="sex" column="sex"></result>
+            <result property="phone" column="phone"></result>
+            <result property="img" column="img"></result>
+            <result property="qq" column="qq"></result>
+            <result property="wChat" column="wchat"></result>
+            <result property="className" column="class"></result>
+            <result property="birthday" column="birthday"></result>
+            <result property="login_data" column="login_date"></result>
+            <result property="hobby" column="hobby"></result>
+            <result property="introduce" column="introduce"></result>
+        </association>
+        <!--一对一关系之收信人-->
+        <association property="find_user_to" javaType="User">
+            <id property="id" column="id"></id>
+            <result property="name" column="username"></result>
+            <result property="password" column="password"></result>
+            <result property="email" column="email"></result>
+            <result property="sex" column="sex"></result>
+            <result property="phone" column="phone"></result>
+            <result property="img" column="img"></result>
+            <result property="qq" column="qq"></result>
+            <result property="wChat" column="wchat"></result>
+            <result property="className" column="class"></result>
+            <result property="birthday" column="birthday"></result>
+            <result property="login_data" column="login_date"></result>
+            <result property="hobby" column="hobby"></result>
+            <result property="introduce" column="introduce"></result>
+        </association>
+    </resultMap>
+
+    <insert id="insertPerEmail" parameterType="PerEmail">
+        insert into per_email value (null,#{user_from},#{user_to},#{date},#{content})
+    </insert>
+    <delete id="deletePerEmail" parameterType="PerEmail">
+        delete from per_email where id > #{id};
+    </delete>
+    <update id="updatePerEmail" parameterType="PerEmail">
+        update per_email set content=#{content} where id=#{id}
+    </update>
+    <!--查询所有-->
+    <select id="findAll" resultMap="perEmailMap">
+        SELECT * FROM per_email;
+    </select>
+    <!--通过发信人id查询-->
+    <select id="findUserByUserFrom" parameterType="PerEmail" resultMap="perEmailMap">
+      select * from user ,(select * from per_email p  where p.user_from= #{user_from}) e where user.id=e.user_to;
+    </select>
+    <!--通过收信人id进行查询-->
+    <!--这条语句比较复杂，是多表查询中的子查询。
+        逻辑是这样的：
+            1.首先通过User的user_to过滤出自己接收到的私信
+            2.在这堆私信中通过user_from找到私信的发出人
+    -->
+    <select id="findUserByUserTo" parameterType="PerEmail" resultMap="perEmailMap">
+        select u.*,e.id eid,e.user_from,e.user_to,e.date,e.content from user u,(select * from per_email where user_to=#{user_to}) e
+        where e.user_from=u.id;
+    </select>
+<!--
+           select u.*,e.id eid,e.user_from,e.user_to,e.date,e.content from user u,per_email e
+    where u.id=#{usr_from};
+-->
+</mapper>

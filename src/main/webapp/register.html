@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>用户注册</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/registerStyle1.css">
+    <link rel="stylesheet" href="assets/css/registerStyle2.css">
+</head>
+
+<body>
+
+<!-- Top content -->
+<div class="top-content">
+
+    <div class="inner-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2 text">
+                    <h1><strong>MyFriend</strong> Welcome To Join Us!</h1>
+                    <div class="description">
+                        <p>
+                            We are wait for you long time,and you can
+                            register now！
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3 form-box">
+                    <div class="form-top">
+                        <div class="form-top-left">
+                            <h3>Register</h3>
+                            <p>Enter your username and password to register in:</p>
+                            <p>Note:you can click you head img to change you img in random.</p>
+                            <p id="err-msg" style="color: red;"></p>
+                        </div>
+                    </div>
+                    <div class="form-bottom">
+                        <form role="form" action="" method="post" class="login-form">
+                            <!--1.选择头像-->
+                            <div id="personal-head-img" class="form-group">
+                                <img src="assets/img/head_img/head_img_0.jpg" class="img-circle"
+                                     style="height: 100px; width: 100px;">
+                                <input type="text" value="im" name="img" id="head-img" style="display: none">
+                            </div>
+                            <!--2.填写姓名-->
+                            <div class="form-group">
+                                <input type="text" name="name" placeholder="Username..."
+                                       class="form-username form-control" id="username" value="王五">
+                            </div>
+                            <!--3.填写密码-->
+                            <div class="form-group">
+                                <input type="password" name="password" placeholder="Password..."
+                                       class="form-password form-control" id="password" value="000000a">
+                            </div>
+                            <!--4.填写手机号-->
+                            <div class="form-group">
+                                <input type="text" name="phone" placeholder="Phone..."
+                                       class="form-password form-control" id="phone" value="12345678999">
+                            </div>
+                            <!--5.填写邮箱-->
+                            <div class="form-group">
+                                <input type="text" name="email" placeholder="Email..."
+                                       class="form-password form-control" id="email" value="739153436@qq.com">
+                            </div>
+                            <!--5.选择班级-->
+                            <div class="form-group">
+                                <select class="form-control" name="className"
+                                        style="background:#f8f8f8; height: 50px; border: 3px solid #ddd;"
+                                        id="className">
+                                    <option value="物联网171">物联网171</option>
+                                    <option value="物联网172">物联网172</option>
+                                    <option value="物联网173">物联网173</option>
+                                    <option value="物联网174">物联网174</option>
+                                </select>
+                            </div>
+                            <!--6.选择性别-->
+                            <div class="form-group register-radio">
+                                <input type="radio" name="sex" placeholder="Email..." value="男"
+                                       class="form-password form-control" checked><span
+                                    class="radio-float-span">&nbsp;&nbsp;男</span>
+                                <input type="radio" name="sex" placeholder="Email..." value="女"
+                                       class="form-password form-control"><span
+                                    class="radio-float-span">&nbsp;&nbsp;女</span>
+                            </div>
+                            <br/>
+                            <br/>
+                            <button type="button" class="btn" id="submit-button">Sign in!</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3 social-login">
+                    <h3>...other chooses:</h3>
+                    <div class="social-login-buttons">
+                        <a class="btn btn-link-2" href="index.html">
+                            <i class="fa fa-facebook"></i> HOME
+                        </a>
+                        <a class="btn btn-link-2" href="login.html">
+                            <i class="fa fa-twitter"></i> LOGIN
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Javascript -->
+<script src="assets/third-party-libraries/jquery-1.12.4.js"></script>
+<script src="assets/third-party-libraries/bootstrap.min.js"></script>
+<script src="assets/third-party-libraries/loginAndRegist.js"></script>
+<script src="assets/third-party-libraries/loginAndRegister2.js"></script>
+<!--表单校验函数js文件-->
+<script src="assets/js/formValidation.js"></script>
+
+<script>
+
+
+    $(function () {
+        //第一部分：实现图片点击切换效果
+        //点击切换图片效果的实现
+        //1.首先获取服务器端的图片路径
+        //定义一个全局的图片数组
+        var imgPathArray;
+        //2.界面刷新就直接进行图片数组的刷新
+        $.get("img/findAllImgCanUse", function (data) {
+            // console.log(data);
+            imgPathArray = data;
+            randomImg();
+        });
+
+        //3.定义一个图片切换函数
+        function randomImg() {
+            var path = imgPathArray[Math.floor(Math.random() * imgPathArray.length)].img_name;
+            $("#personal-head-img img").attr("src", "assets/img/head_img/" + path);
+            $("#personal-head-img input").val(path);
+            // alert($("#personal-head-img input").val());
+        }
+
+        //4.注册图片点击事件
+        $("#personal-head-img").click(function () {
+            // console.log(imgPathArray[0].img_name);
+            // console.log(imgPathArray[Math.floor(Math.random()*imgPathArray.length)].img_name);
+            //拼接获取图片的路径
+            randomImg();
+        });
+
+        //第二部分：实现表单提交效果
+        $("#submit-button").click(function () {
+            if (checkUsername() && checkPassword() && checkPhone() && checkEmail()) {
+                console.log($("form").serialize());
+                $.post("user/regist", $("form").serialize(),
+                    function (data) {
+                        console.log(data);
+
+                        if (data.flag) {
+                            //登录成功
+                            alert("注册成功，现在请登录！");
+                            location.href = "login.html";
+                        } else {
+                            //登录失败
+                            $("#err-msg").html(data.errorMsg);
+                        }
+                    }
+                );
+            }
+        });
+
+    });
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,79 @@
+/**
+ *********** index.html ***********
+ */
+/*导航栏的属性设置*/
+nav:first-child {
+    padding-left: 5%;
+    padding-right: 13%;
+}
+
+/*设置头像图片属性*/
+#personal-head-img {
+    height: 40px;
+    width: 40px;
+    border: 1px solid #ddd;
+}
+
+/*设置容器本身属性*/
+#personal-msg {
+    background: #96959396;
+    border-radius: 60px;
+    padding-right: 20px;
+    position: fixed;
+    z-index: 1;
+    right: 2%;
+    top: 70px;
+}
+
+/*设置其中每个选项之间的内边距*/
+#personal-msg li {
+    padding: 2px;
+    font-size: 16px;
+    background: #334b9412;
+    border-radius: 7px;
+}
+
+/*设置名称字体*/
+#personal-msg font {
+    font-weight: bold;
+    color: #ffffffad;
+}
+
+/*班级图片属性的设置*/
+.class-img img {
+    width: 200px;
+    height: 200px;
+    border: 3px solid #ddd;
+}
+
+/**
+ *********** classMates.html ***********
+ */
+/*设置表格的行间距*/
+.table > tbody > tr > td {
+    line-height: 28px;
+    width: 100px;
+    /*设置文字居中*/
+    vertical-align: middle;
+}
+
+/*设置表格中头像属性*/
+.table > tbody > tr > td > span > img {
+    width: 40px;
+    height: 40px;
+    border: solid;
+    border-width: 2px;
+    border-color: #14c4adb5;
+}
+
+/*设置表格中名称字体*/
+.table > tbody > tr > td > span > font {
+    font-size: 16px;
+    font-family: 微软雅黑;
+    font-weight: bold;
+}
+
+/*为圆形图片统一设置边框样式*/
+.img-circle{
+    border: 3px solid #ddd;
+}

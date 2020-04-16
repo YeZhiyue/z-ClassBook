@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--第一步：指定需要进行代理的接口的位置-->
+<mapper namespace="cn.ye.dao.UserDao">
+    <!--第二步：配置返回数据和模板类字段的对应-->
+    <resultMap id="userMap" type="User">
+        <id property="id" column="id"></id>
+        <result property="name" column="username"></result>
+        <result property="password" column="password"></result>
+        <result property="email" column="email"></result>
+        <result property="sex" column="sex"></result>
+        <result property="phone" column="phone"></result>
+        <result property="img" column="img"></result>
+        <result property="qq" column="qq"></result>
+        <result property="wChat" column="wchat"></result>
+        <result property="className" column="class"></result>
+        <result property="birthday" column="birthday"></result>
+        <result property="login_data" column="login_date"></result>
+        <result property="hobby" column="hobby"></result>
+        <result property="introduce" column="introduce"></result>
+        <!--用于查询我接收到的私信-->
+        <collection property="perEmails" ofType="PerEmail"
+                    select="cn.ye.dao.PerEmailDao.findUserByUserTo" column="id"
+        >
+            <id property="id" column="id"></id>
+            <result property="user_from" column="user_from"></result>
+            <result property="user_to" column="user_to"></result>
+            <result property="date" column="date"></result>
+            <result property="content" column="content"></result>
+        </collection>
+        <!--用于查询我发送的私信-->
+        <collection property="sendEmails" ofType="PerEmail"
+                    select="cn.ye.dao.PerEmailDao.findUserByUserFrom" column="id"
+        >
+            <id property="id" column="id"></id>
+            <result property="user_from" column="user_from"></result>
+            <result property="user_to" column="user_to"></result>
+            <result property="date" column="date"></result>
+            <result property="content" column="content"></result>
+        </collection>
+        <!--用于查询用户发布的论坛讨论-->
+        <collection property="perPassages" ofType="PerPassage"
+                    select="cn.ye.dao.PerPassageDao.findPerPassageById" column="id"
+        >
+            <id property="id" column="id"></id>
+            <result property="edit_user" column="edit_user"></result>
+            <result property="date" column="date"></result>
+            <result property="content" column="content"></result>
+        </collection>
+    </resultMap>
+    <!--
+        说明：以下都是数据库查询语句的标签内容，其实质就是在写数据库操作的方法，
+            只不过就是通过标签的形式书写代码而已。
+        标签介绍：对应的就是CRUD操作
+            <insert>
+            <delete>
+            <update>
+            <select>
+        属性介绍：
+            id：对应实现的接口的方法名，这里实现了接口"UserDao"
+            parameterType:对应了方法中的参数，这里主要使用的参数都是user
+            resultType：返回值类型，一些包装类或者基本类型的返回值使用这个标签
+            resultMap：返回值类型，一些引用类型对象的返回值使用这个标签，通常配合<resultMap>标签使用
+
+        -->
+    <!--第三步：进行CRUD操作-->
+    <!--注册新增用户-->
+    <insert id="insertUser" parameterType="user">
+        insert into user values(null,#{name},#{password},#{email},#{sex},#{phone},#{img},#{qq},#{wChat},#{className},#{birthday},#{login_data},null,null );
+    </insert>
+    <!--删除用户-->
+    <delete id="deleteUser" parameterType="user">
+        DELETE FROM USER WHERE username=#{name};
+    </delete>
+    <!--更新用户-->
+    <update id="updateUser" parameterType="user">
+        UPDATE USER SET username=#{name} WHERE username='张三';
+    </update>
+    <!--更新用户-->
+    <update id="updateUserMsg" parameterType="user">
+        UPDATE USER SET username=#{name},class=#{className},hobby=#{hobby},birthday=#{birthday},introduce=#{introduce} WHERE id=#{id};
+    </update>
+    <!--查询所有-->
+    <select id="findAll" resultMap="userMap">
+        SELECT * FROM USER;
+    </select>
+
+    <select id="findAllByAlphabetically" resultMap="userMap">
+        SELECT * FROM USER order by username asc;
+    </select>
+    <!--通过名称查询-->
+    <select id="findUserByName" parameterType="user" resultMap="userMap">
+       SELECT * FROM USER WHERE username=#{name};
+    </select>
+    <!--通过ID查询-->
+    <select id="findUserById" parameterType="user" resultMap="userMap">
+       SELECT * FROM USER WHERE id=#{id};
+    </select>
+    <!--通过姓名和密码查询-->
+    <select id="findUserByNameAndPassword" parameterType="user" resultMap="userMap">
+       SELECT * FROM USER WHERE username=#{name} and password=#{password};
+    </select>
+    <!--模糊查询-->
+    <select id="findByKeyWord" parameterType="user" resultMap="userMap">
+        SELECT * FROM USER WHERE username LIKE #{name};
+    </select>
+    <!--聚合函数查询-->
+    <select id="findTotalCount" parameterType="user" resultType="Integer">
+        SELECT COUNT(*) FROM USER
+        <if test="className!=null">
+            where class=#{className}
+        </if>
+        <if test="className==null">
+            where 1=1
+        </if>
+    </select>
+
+    <!--分页查询-->
+    <select id="findAllUserByPageNum" parameterType="int" resultMap="userMap">
+       SELECT * FROM USER limit #{pageIndex},10;
+    </select>
+</mapper>

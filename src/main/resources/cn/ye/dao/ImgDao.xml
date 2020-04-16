@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--第一步：指定需要进行代理的接口的位置-->
+<mapper namespace="cn.ye.dao.ImgDao">
+    <!--第二步：配置返回数据和模板类字段的对应-->
+    <resultMap id="imgMap" type="Img">
+        <id property="id" column="id"></id>
+        <result property="img_name" column="img_name"></result>
+        <result property="img_type" column="img_type"></result>
+        <result property="is_use" column="is_use"></result>
+    </resultMap>
+    <!--新增用户-->
+    <insert id="insertImg" parameterType="Img">
+        insert into Img values(null,#{img_name},#{img_type},#{is_use});
+    </insert>
+    <!--删除用户-->
+    <delete id="deleteImg" parameterType="Img">
+        DELETE FROM Img WHERE id=#{id};
+    </delete>
+    <!--更新用户-->
+    <update id="updateImg" parameterType="Img">
+        UPDATE Img SET is_use=#{is_use} WHERE id=#{id};
+    </update>
+    <!--查询所有-->
+    <select id="findAllByTypeAndIsUse" resultMap="imgMap">
+        SELECT * FROM Img where img_type=#{img_type} and is_use=#{is_use};
+    </select>
+    <select id="findAll" resultMap="imgMap">
+        SELECT * FROM Img;
+    </select>
+    <!--通过名称查询-->
+    <select id="findImgByName" parameterType="Img" resultMap="imgMap">
+       SELECT * FROM Img WHERE img_name=#{img_name};
+    </select>
+</mapper>

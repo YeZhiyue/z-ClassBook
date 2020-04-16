@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>用户登录</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/loginFormStyle.css">
+    <link rel="stylesheet" href="assets/css/loginStyle.css">
+</head>
+
+<body><!--849-->
+
+<!-- Top content -->
+<div class="top-content">
+    <div class="inner-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-2 text">
+                    <h1><strong>MyFriend</strong> Welcome To Back!</h1>
+                    <div class="description">
+                        <p>
+                            You can login now and see what's happenning in your class!
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3 form-box">
+                    <div class="form-top">
+                        <div class="form-top-left">
+                            <h3>Login to our site</h3>
+                            <p>Enter your username and password to log on:</p>
+                        </div>
+                        <div class="form-top-left">
+                            <p id="err-msg"></p>
+                        </div>
+                    </div>
+                    <div class="form-bottom">
+                        <form role="form" action="" method="post" class="login-form">
+                            <div class="form-group">
+                                <label class="sr-only" for="username">Username</label>
+                                <input type="text" name="username" placeholder="Username..."
+                                       class="form-username form-control" id="username" value="叶之越">
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only" for="password">Password</label>
+                                <input type="password" name="password" placeholder="Password..."
+                                       class="form-password form-control" id="password" value="000000">
+                            </div>
+                            <button type="button" class="btn" id="submit-button">Sign in!</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3 social-login">
+                    <h3>...other chooses:</h3>
+                    <div class="social-login-buttons">
+                        <a class="btn btn-link-2" href="index.html">
+                            <i class="fa fa-facebook"></i> HOME
+                        </a>
+                        <a class="btn btn-link-2" href="register.html">
+                            <i class="fa fa-twitter"></i> REGISTER
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Javascript -->
+<script src="assets/third-party-libraries/jquery-1.12.4.js"></script>
+<script src="assets/third-party-libraries/bootstrap.min.js"></script>
+<script src="assets/third-party-libraries/loginAndRegist.js"></script>
+<script src="assets/third-party-libraries/loginAndRegister2.js"></script>
+<!--表单校验函数js文件-->
+<script src="assets/js/formValidation.js"></script>
+<script>
+    $(function () {
+        $("#submit-button").click(function () {
+            if (checkUsername() && checkPassword()) {
+                $.post("user/login", $("form").serialize(),
+                    function (data) {
+                        if (data.flag) {
+                            //登录成功
+                            alert("登录成功");
+                            location.href = "personalIntroduce.html";
+                        } else {
+                            //登录失败
+                            $("#err-msg").html(data.errorMsg);
+                        }
+                    }
+                );
+            }
+        });
+    });
+</script>
+</body>
+
+</html>

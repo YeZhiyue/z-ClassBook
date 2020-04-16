@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人中心</title>
+
+
+    <!-- ===========================
+    STYLESHEETS
+    =========================== -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <!--849 css.style-->
+    <link rel="stylesheet" href="assets/css/introduceStyle.css">
+    <!--个人头像css-->
+    <link rel="stylesheet" href="assets/css/commonAttributes.css">
+    <!--<link rel="stylesheet" href="assets/css/bootstrap-datepicker3.css">-->
+    <style>
+
+        #choose-head-img img {
+            width: 100px;
+            height: 100px;
+        }
+
+        #edit-form {
+            width: 618px;
+            height: 618px;
+
+            position: fixed;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+
+            margin: auto; /* 有了这个就自动居中了 */
+            z-index: 1;
+        }
+    </style>
+</head>
+
+<body>
+<!--用户悬浮头像-->
+<ul id="personal-msg" style="display: none" class="list-inline">
+    <li><img id="personal-head-img" src="assets/img/head_img/head_img_0.jpg" class="img-circle"></li>
+    <li><font>叶之越</font></li>
+    <li><a href="javascript:void (0)">Exit</a></li>
+</ul><!--用户悬浮头像 END-->
+<div id="edit-form" class="container" style="display: none;">
+    <div class="row">
+        <!--编辑表单-->
+        <form role="form" action="" method="post" class="login-form">
+            <p>编辑你的信息</p>
+            <p id="err-msg"></p>
+            <!--填写姓名-->
+            <div class="form-group">
+                <input type="text" name="name" placeholder="Username..."
+                       class="form-username form-control" id="username">
+            </div>
+            <!--选择班级-->
+            <div class="form-group">
+                <select class="form-control" name="className" id="className">
+                    <option value="物联网171">物联网171</option>
+                    <option value="物联网172">物联网172</option>
+                    <option value="物联网173">物联网173</option>
+                    <option value="物联网174">物联网174</option>
+                </select>
+            </div>
+            <!--选择爱好-->
+            <div class="form-group">
+                <input type="text" name="hobby" placeholder="Hobbys..."
+                       class="form-username form-control" id="hobby">
+            </div>
+            <!--生日-->
+            <div class="form-group">
+                <input type="date" name="birthday" placeholder="Birthday..."
+                       class="form-username form-control" id="birthday">
+            </div>
+            <!--个人介绍-->
+            <div class="form-group">
+                <textarea type="text" name="introduce" placeholder="Introduce..."
+                          class="form-username form-control" id="introduce" style="height: 200px"></textarea>
+            </div>
+            <div class="btn-group">
+                <button type="button" class="btn btn-default" id="edit-form-button">Submit</button>
+                <button type="button" class="btn btn-default" id="edit-form-cancel-btn">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<!--导航栏-->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="javascript:void(0)">Class Address Book</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="classMates.html">ClassMates</a></li>
+                <li><a href="classPosts.html">ClassPosts</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<div class="container">
+
+    <div class="row">
+        <div id="header-img" class="col-sm-2">
+            <img class="img-circle" src="assets/img/introduce_img/bappy.jpg" style="height: 138px;width: 138px">
+        </div>
+        <div class="col-sm-10">
+            <div class="cv-title">
+                <div class="row">
+                    <div class="col-sm-7">
+                        <h1 id="introduce-page-name">叶之越</h1>
+                    </div>
+                    <div class="col-sm-5 text-right dl-share">
+                        <a id='edit-form-btn' class="a2a_dd btn btn-default if-not-host" name="f1"><span
+                                class="fa fa-share"></span> EditYourMessage</a>
+
+
+                        <a class="btn btn-success" href="classMates.html"><span class="fa fa-download"></span>
+                            MyClass</a>
+                    </div>
+                </div>
+                <h2><a href='#'>Your message</a></h2>
+            </div>
+
+            <!-- ===========================
+            SOCIAL & CONTACT
+            ============================ -->
+            <div id="personal-message-1" class="row">
+                <div class="col-sm-6">
+                    <ul class="list-unstyled">
+                        <li>Sex：<a href=""><span class="social fa fa-home"></span>EvenFly</a>
+                        </li>
+                        <li>Phone：<a href=""><span class="social fa fa-skype"></span>+88 0123 45678</a>
+                        </li>
+                        <li>Mail：<a href=""><span class="social fa fa-envelope-o"></span>me@mail.com</a>
+                        </li>
+                    </ul>
+                </div><!-- social 1st col end-->
+
+                <div class="col-sm-6">
+                    <ul class="list-unstyled">
+                        <li>QQ：<a href=""><span class="social fa fa-facebook"></span>Facebook</a>
+                        </li>
+                        <li>WChat：<a href=""><span class="social fa fa-twitter"></span>Twitter</a>
+                        </li>
+                        <li>Class：<a href=""><span class="social fa fa-linkedin"></span>Linkedin</a>
+                        </li>
+                    </ul>
+                </div><!-- social 2nd col end-->
+
+            </div><!-- header social end-->
+        </div><!-- header right end-->
+    </div>
+
+    <hr class="firsthr">
+
+    <!--第二部分：个人信息介绍-->
+    <div class="row mobmid">
+        <div class="col-sm-1">
+            <span class="secicon fa fa-user"></span>
+        </div>
+
+        <div id="personal-introduce-msg" class="col-sm-7">
+            <h3>Personal Introduce: </h3>
+            <p>Hi, I am Bappy from Bangladesh.Adipiscing elit. Nullam dapibus vehicula condimentum. Curabitur elit
+                enim, accumsan vitae tristique ut, mollis at orci. Fusce cursus interdum neque nec aliquam. Proin
+                turpis leo, laoreet non ultricies non, dictum nec nulla. Duis vitae nisi eu odio Adipiscing elit.
+                Nullam dapibus vehicula condimentum. Curabitur elit enim, accumsan.</p>
+            <p>Consectetur adipisicing elit. Hic labore, unde, ratione, itaque ducimus provident error similique
+                qui, recusandae nam dignissimos autem. Sequi quas quis non, odit assumenda similique neque.</p>
+        </div>
+        <!--目录引导-->
+        <div class="col-sm-4">
+            <ul class="nav nav-pills nav-stacked" style="max-width: 260px;">
+                <li><a href="javascript:void(0)">简介</a></li>
+                <li>
+                    <a href="#f1">
+                        我的简要信息
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)">
+                        我的爱好、特长
+                    </a>
+                </li>
+                <li>
+                    <a href="#f3">
+                        <span id="myPosterNum" class="badge pull-right">3</span>
+                        我的班级发帖
+                    </a>
+                </li>
+                <li>
+                    <a href="#f2" class="if-not-host">
+                        <span id="myPerEmailNum" class="badge pull-right">3</span>
+                        我的私信
+                    </a>
+                </li>
+                <li>
+                    <a href="#f2" class="if-not-host">
+                        <span id="sendPerEmailNum" class="badge pull-right">3</span>
+                        我的发信
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div><!--个人介绍部分结束-->
+
+    <hr>
+    <div class="jumbotron">
+        <h1>个人发帖！</h1>
+        <p>这里有你的所有班级发帖</p>
+
+    </div>
+    <!--第三部分：个人发帖-->
+    <div class="row">
+        <div class="col-xs-offset-4 col-sm-10">
+            <ul class="pagination pagination-lg" id="paging">
+                <!--                <li class="previous disabled"><a href="#">&larr; Older</a></li>
+                                <li class="active"><a href="#">1</a></li>
+                                <li class="disabled"><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
+                                <li><a href="#">6</a></li>
+                                <li><a href="#">7</a></li>
+                                <li><a href="#">8</a></li>
+                                <li class="next"><a href="#">Newer &rarr;</a></li>-->
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+
+        <div id="myPosters" class="col-xs-offset-1 col-sm-11">
+            <!--发帖内容-->
+            <div class="row">
+                <div class="col-md-9">
+                    <h4>MSc in Design &amp; Fine Art</h4>
+                    <p class="sub"><a href="">Ideal Institute of Science and Technology</a>
+                    </p>
+                    <p>Studying all aspect of Graphic Design Including Advertising Design, Branding, Copy Exhibition
+                        Design, Ilustration, Information Design, Packaging Design and Website Design</p>
+                </div>
+
+                <div class="year col-md-3">
+                    <p>2009-2011</p>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="row">
+                <div class="col-md-9">
+                    <h4>BSc in Graphic Design</h4>
+                    <p class="sub"><a href="">Ideal Institute of Science and Technology</a>
+                    </p>
+                    <p>Studying all aspect of Graphic Design Including Advertising Design, Branding, Copy Exhibition
+                        Design, Ilustration, Information Design, Packaging Design and Website Design</p>
+                </div>
+
+                <div class="year col-md-3">
+                    <p>2006-2009</p>
+                </div>
+            </div><!--Education & Certification 2 end-->
+
+            <hr>
+
+            <div class="row">
+                <div class="col-md-9">
+                    <h4>Diploma in Graphic Design</h4>
+                    <p class="sub"><a href="">Ideal Institute of Science and Technology</a>
+                    </p>
+                    <p>Studying all aspect of Graphic Design Including Advertising Design, Branding, Copy Exhibition
+                        Design, Ilustration, Information Design, Packaging Design and Website Design</p>
+                </div>
+
+                <div class="year col-md-3">
+                    <p>2003-2006</p>
+                </div>
+            </div><!--Education & Certification 3 end-->
+        </div><!--我的发帖部分结束-->
+
+    </div>
+    <br/>
+    <br/>
+    <br/>
+    <div class="jumbotron if-not-host" class="if-not-host">
+        <h1>个人信箱！</h1><a name="f2"></a><!--锚点-->
+        <p>这里有你的所有私信和发信</p>
+    </div>
+
+
+    <div class="row">
+
+        <div class="col-lg-offset-1 col-xs-5">
+            <!--第四部分：我的私信-->
+            <div class="row">
+                <div class="col-xs-5"><h1 class="if-not-host">我的私信</h1></div>
+                <div class="col-lg-offset-1 col-xs-5"><div class="btn-group">
+                    <button type="button" class="btn btn-default perEmail-1">上一页</button>
+                    <button type="button" class="btn btn-default perEmail-2">下一页</button>
+                </div></div>
+            </div>
+            <div id="personal-email" class="col-sm-11 col-md-10 testimonials">
+                <!--<h3 class="mobmid">PerMail </h3>-->
+                <!--                <br/>
+                                <br/>
+
+                                <div class="row">
+                                    <img src="assets/img/introduce_img/mushfiq.jpg" alt="">
+                                    <h4>Mushfiqul Islam</h4>
+                                    <p>The UX Votch</p>
+                                    <blockquote>
+                                        <p>Sit amet, consectetur adipisicing elit. Fuga quidem ipsum maiores necessitatibus sint, porro
+                                            temporibus labore, amet officia unde libero eligendi? Porro dolorum itaque, facere harum
+                                            amet, rem libero.</p>
+                                    </blockquote>
+                                </div>
+                                <br/>
+                                <br/>
+                                &lt;!&ndash;1st testimonial end&ndash;&gt;
+
+                                <div class="row">
+                                    <img src="assets/img/introduce_img/siblu.jpg" alt="">
+                                    <h4>E.A. Siblu</h4>
+                                    <p>The Jatir Vobisshot</p>
+                                    <blockquote>
+                                        <p>Consectetur adipisicing elit. Fuga quidem ipsum maiores necessitatibus sint, porro temporibus
+                                            labore, unde libero eligendi? Porro dolorum itaque, facere harum amet, rem libero.</p>
+                                    </blockquote>
+                                </div>
+                                <br/>
+                                <br/>
+                                &lt;!&ndash;2nd testimonial end&ndash;&gt;
+
+                                <div class="row">
+                                    <img src="assets/img/introduce_img/nasir.jpg" alt="">
+                                    <h4>Nasir Uddin</h4>
+                                    <p>The Cute Huzur</p>
+                                    <blockquote>
+                                        <p>Fuga quidem ipsum maiores necessitatibus sint, porro temporibus labore, amet officia unde
+                                            libero eligendi? Porro dolorum itaque, facere harum amet, rem libero.</p>
+                                    </blockquote>
+                                </div>
+                                <br/>
+                                <br/>-->
+                <!--3rd testimonial end-->
+            </div><!--私信部分结束-->
+        </div>
+        <div class="col-lg-offset-1 col-xs-5">
+            <!--第四部分：我的发信-->
+            <div class="row">
+                <div class="col-xs-5"><h1 class="if-not-host">我的发信</h1></div>
+                <div class="col-lg-offset-1 col-xs-5"><div class="btn-group">
+                    <button type="button" class="btn btn-default send-mail-btn1">上一页</button>
+                    <button type="button" class="btn btn-default send-mail-btn2">下一页</button>
+                </div></div>
+            </div>
+
+
+
+            <div id="personal-send-email" class="col-sm-11 col-md-10 testimonials">
+                <!--<h3 class="mobmid">PerMail </h3>-->
+                <!--
+                                <br/>
+                                <br/>
+
+                                <div class="row">
+                                    <img src="assets/img/introduce_img/mushfiq.jpg" alt="">
+                                    <h4>Mushfiqul Islam</h4>
+                                    <p>The UX Votch</p>
+                                    <blockquote>
+                                        <p>Sit amet, consectetur adipisicing elit. Fuga quidem ipsum maiores necessitatibus sint, porro
+                                            temporibus labore, amet officia unde libero eligendi? Porro dolorum itaque, facere harum
+                                            amet, rem libero.</p>
+                                    </blockquote>
+                                </div>
+                                <br/>
+                                <br/>
+                                &lt;!&ndash;1st testimonial end&ndash;&gt;
+
+                                <div class="row">
+                                    <img src="assets/img/introduce_img/siblu.jpg" alt="">
+                                    <h4>E.A. Siblu</h4>
+                                    <p>The Jatir Vobisshot</p>
+                                    <blockquote>
+                                        <p>Consectetur adipisicing elit. Fuga quidem ipsum maiores necessitatibus sint, porro temporibus
+                                            labore, unde libero eligendi? Porro dolorum itaque, facere harum amet, rem libero.</p>
+                                    </blockquote>
+                                </div>
+                                <br/>
+                                <br/>
+                                &lt;!&ndash;2nd testimonial end&ndash;&gt;
+
+                                <div class="row">
+                                    <img src="assets/img/introduce_img/nasir.jpg" alt="">
+                                    <h4>Nasir Uddin</h4>
+                                    <p>The Cute Huzur</p>
+                                    <blockquote>
+                                        <p>Fuga quidem ipsum maiores necessitatibus sint, porro temporibus labore, amet officia unde
+                                            libero eligendi? Porro dolorum itaque, facere harum amet, rem libero.</p>
+                                    </blockquote>
+                                </div>
+                                <br/>
+                                <br/>
+                -->
+                <!--3rd testimonial end-->
+            </div><!--私信部分结束-->
+        </div>
+    </div>
+</div>
+
+
+</div><!--container end-->
+
+<!-- ===========================
+FOOTER
+=========================== -->
+<footer class="text-center">
+    <p>&copy; CC-3.0, Class Address Book.<br>Welcome Our Family
+    </p>
+</footer>
+
+
+<!--necessary scripts and plugins-->
+<script src="assets/third-party-libraries/jquery-1.12.4.js"></script>
+<script src="assets/third-party-libraries/bootstrap.min.js"></script>
+<script src="assets/third-party-libraries/personalIntroduceCustom.js"></script>
+
+<!--用于登录验证的js文件-->
+<script src="assets/js/loginAuthentication.js"></script>
+<!--表单校验函数js文件-->
+<script src="assets/js/formValidation.js"></script>
+<!--用于头像的一些事件注册-->
+<script src="assets/js/avatarFunction.js"></script>
+<!--分页页码更新js函数-->
+<script src="assets/js/pageQueryForAll.js"></script>
+<!--个人页信息更新js-->
+<script src="assets/js/personalIntroduce.js"></script>
+
+<script>
+
+
+</script>
+</body>
+</html>

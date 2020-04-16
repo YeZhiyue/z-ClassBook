@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>班级发帖</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="assets/css/classPostsStyle.css" rel="stylesheet">
+    <link href="assets/css/commonAttributes.css" rel="stylesheet">
+</head>
+
+<body>
+
+<!--用户悬浮头像-->
+<ul id="personal-msg" style="display: none" class="list-inline">
+    <li><img id="personal-head-img" src="assets/img/head_img/head_img_0.jpg" class="img-circle"></li>
+    <li><font>叶之越</font></li>
+    <li><a href="javascript:void (0)">Exit</a></li>
+</ul><!--用户悬浮头像 END-->
+
+
+<!--导航-->
+<nav class="navbar navbar-fixed-top navbar-inverse">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="javascript:void(0)">Class Address Book</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="classMates.html">ClassMates</a></li>
+                <li><a href="classPosts.html">ClassPosts</a></li>
+                <li><a href="personalIntroduce.html">PersonalMsg</a></li>
+            </ul>
+        </div>
+    </div>
+</nav><!-- /.navbar -->
+
+
+<div class="container">
+
+    <div class="row row-offcanvas row-offcanvas-right">
+
+        <div class="col-xs-12 col-sm-12">
+            <p class="pull-right visible-xs">
+                <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
+            </p>
+            <div class="jumbotron">
+                <h1>物联网工程!</h1><br/><!--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->
+                <p>欢迎来到班级讨论发帖区进行发帖！</p><br/>
+                <div class="alert alert-success">
+                    <a href="javascript:void (0)" class="alert-link">如果想要发帖的话！可以点击这里。</a></div>
+                <div class="alert alert-info">
+                   <small>信息！请注意这个信息。</small></div>
+            </div>
+            <!--编辑区域-->
+            <form role="form" style="display: none">
+                <blockquote style="border-radius: 30px">你可以在下面进行编辑您的发帖内容
+                    <small id="err-msg"><cite title="Source Title">发帖内容字数需要大于20字</cite>
+                    </small>
+                </blockquote>
+
+                <div class="form-group">
+                    <textarea style="height: 150px" name="content" class="form-control" rows="3" id="myPost"></textarea>
+                </div>
+                <div class="btn-group btn-group-sm pull-right" style="margin-right: 30px">
+                    <button type="button" class="btn btn-default" id="edit-form-button">Submit</button>
+                    <button type="button" class="btn btn-default active" id="edit-form-cancel-btn">Cancel</button>
+                </div>
+
+            </form>
+        </div><!--/.col-xs-12.col-sm-9-->
+
+
+    </div><!--/row-->
+    <div class="container" id="class-posts">
+        <!--<div class="row">
+            <div class="col-xs-6 col-lg-6">
+                <blockquote>
+                    <div class="row">
+                        <div class="col-xs-6 col-lg-6">
+                            <img src="assets/img/introduce_img/mushfiq.jpg" alt="">
+                        </div>
+                        <div class="col-xs-6 col-lg-6">
+                            <h4>叶之越</h4>
+                            <p>2020-4-11 11:00</p>
+                        </div>
+                    </div>
+                    <hr/>
+                    <p>Sit amet, consectetur adipisicing elit. Fuga quidem ipsum maiores necessitatibus sint, porro
+                        temporibus labore, amet officia unde libero eligendi? Porro dolorum itaque, facere harum amet,
+                        rem libero.</p>
+                </blockquote>
+                <hr/>
+            </div>&lt;!&ndash;/.col-xs-6.col-lg-4&ndash;&gt;
+            <div class="col-xs-6 col-lg-6">
+
+                <blockquote>
+                    <img src="assets/img/introduce_img/mushfiq.jpg" alt="">
+                    <h4>叶之越</h4>
+                    <p>2020-4-11 11:00</p>
+                    <hr/>
+                    <p>Sit amet, consectetur adipisicing elit. Fuga quidem ipsum maiores necessitatibus sint, porro
+                        temporibus labore, amet officia unde libero eligendi? Porro dolorum itaque, facere harum
+                        amet, rem libero.</p>
+                </blockquote>
+                <hr/>
+            </div>&lt;!&ndash;/.col-xs-6.col-lg-4&ndash;&gt;
+            <div class="col-xs-6 col-lg-4">
+
+                <blockquote>
+                    <img src="assets/img/introduce_img/mushfiq.jpg" alt="">
+                    <h4>叶之越</h4>
+                    <p>2020-4-11 11:00</p>
+                    <hr/>
+                    <p>Sit amet, consectetur adipisicing elit. Fuga quidem ipsum maiores necessitatibus sint, porro
+                        temporibus labore, amet officia unde libero eligendi? Porro dolorum itaque, facere harum
+                        amet, rem libero.</p>
+                </blockquote>
+                <hr/>
+            </div>&lt;!&ndash;/.col-xs-6.col-lg-4&ndash;&gt;
+        </div>&lt;!&ndash;/row&ndash;&gt;-->
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-2"></div>
+            <div class="col-xs-8">
+                <ul class="pagination pagination-lg" id="paging">
+                    <li class="previous disabled"><a href="#">&larr; Older</a></li>
+                    <li class="active"><a href="#">1</a></li>
+                    <li class="disabled"><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#">6</a></li>
+                    <li><a href="#">7</a></li>
+                    <li><a href="#">8</a></li>
+                    <li class="next"><a href="#">Newer &rarr;</a></li>
+                </ul>
+            </div>
+            <div class="col-xs-2"></div>
+        </div>
+    </div>
+    <hr>
+    <footer>
+        <p>&copy; 2016 Company, Inc.</p>
+    </footer>
+
+</div><!--/.container-->
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="assets/third-party-libraries/jquery-1.12.4.js"></script>
+<script src="assets/third-party-libraries/bootstrap.min.js"></script>
+<script src="assets/third-party-libraries/classPosts.js"></script>
+<script src="assets/js/classPostsPageInit.js"></script>
+<!--用于登录验证的js文件-->
+<script src="assets/js/loginAuthentication.js"></script>
+<!--表单校验函数js文件-->
+<script src="assets/js/formValidation.js"></script>
+<!--用于头像的一些事件注册-->
+<script src="assets/js/avatarFunction.js"></script>
+<!--分页页码更新js函数-->
+<script src="assets/js/pageQueryForAll.js"></script>
+</body>
+</html>
